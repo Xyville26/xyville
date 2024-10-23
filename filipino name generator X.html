@@ -1,0 +1,416 @@
+<html><head><base href="https://filipinogenerator.com/">
+<title>Filipino Name Generator | Pangalan</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, 
+        #0038A8 0%,
+        #CE1126 50%,
+        #FCD116 100%
+    );
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border: 3px solid #FCD116;
+}
+
+h1 {
+    color: #0038A8;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    color: #CE1126;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.controls {
+    margin-bottom: 2rem;
+}
+
+button {
+    background: #CE1126;
+    color: white;
+    border: 2px solid #FCD116;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #0038A8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.name-display {
+    margin: 2rem 0;
+    padding: 1rem;
+    border: 2px dashed #0038A8;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    perspective: 1000px;
+}
+
+.name-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.info-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.info-card.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.info-card h3 {
+    color: #0038A8;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.trivia-section, .summary-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(0, 56, 168, 0.1);
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.trivia-section.reveal, .summary-section.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.info-icon {
+    color: #0038A8;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.info-text {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+    padding: 1rem;
+}
+
+.name-display.flip {
+    animation: flipEffect 1s ease-out;
+}
+
+@keyframes flipEffect {
+    0% {
+        transform: perspective(1000px) rotateX(90deg);
+        opacity: 0;
+    }
+    100% {
+        transform: perspective(1000px) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+.name {
+    font-size: 2rem;
+    color: #0038A8;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.meaning {
+    color: #CE1126;
+    font-style: italic;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.name-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.summary-card {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #0038A8;
+    text-align: left;
+}
+
+.summary-card h4 {
+    color: #0038A8;
+    margin-bottom: 0.5rem;
+}
+
+@keyframes revealName {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(10px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes letterFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) rotate(10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.name.reveal {
+    animation: revealName 0.8s forwards;
+}
+
+.meaning.reveal {
+    animation: revealName 0.8s forwards;
+    animation-delay: 0.3s;
+}
+
+.letter-animate {
+    display: inline-block;
+    opacity: 0;
+    animation: letterFloat 0.5s forwards;
+}
+
+.gender-select {
+    margin: 1rem 0;
+}
+
+select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 2px solid #0038A8;
+    background: white;
+    color: #0038A8;
+    cursor: pointer;
+}
+
+.philippines-flag {
+    width: 100px;
+    height: 50px;
+    margin: 1rem auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <svg class="philippines-flag" viewBox="0 0 100 50">
+        <rect width="100" height="25" fill="#0038A8"/>
+        <rect y="25" width="100" height="25" fill="#CE1126"/>
+        <polygon points="0,0 50,25 0,50" fill="#FCD116"/>
+        <circle cx="16" cy="25" r="8" fill="#FCD116"/>
+    </svg>
+    
+    <h1>Filipino Name Generator</h1>
+    <p class="subtitle">Discover your perfect Filipino name</p>
+    
+    <div class="controls">
+        <div class="gender-select">
+            <select id="gender">
+                <option value="any">Any Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <button onclick="generateName()">Generate Name</button>
+    </div>
+    
+    <div class="name-display" id="nameDisplay">
+        <div id="generatedName" class="name">Click generate to create a name</div>
+        <div id="nameMeaning" class="meaning"></div>
+    </div>
+
+    <div class="name-info">
+        <div class="trivia-section" id="triviaSection">
+            <div class="info-icon">📚</div>
+            <h3>Historical Trivia</h3>
+            <div class="info-text" id="triviaText"></div>
+        </div>
+
+        <div class="summary-section" id="summarySection">
+            <div class="info-icon">📋</div>
+            <h3>Name Summary</h3>
+            <div class="name-summary" id="nameSummary">
+                <!-- Summary cards will be inserted here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const maleNames = {
+    'Agapito': ['Beloved', 'Derived from Greek "agape" meaning unconditional love. Common during the Spanish colonial period.', {
+        origin: 'Greek',
+        popularity: 'Traditional',
+        characteristics: 'Loving, Compassionate',
+        nameDay: 'April 22'
+    }],
+    'Bayani': ['Hero', 'A pure Filipino name often given to honor courage and patriotism. Many Philippine national heroes were called "Bayani".', {
+        origin: 'Filipino',
+        popularity: 'Common',
+        characteristics: 'Brave, Patriotic',
+        nameDay: 'June 12'
+    }],
+    'Dakila': ['Great/Noble', 'An ancient Filipino word that embodies leadership and excellence. Used in many traditional epics.', {
+        origin: 'Filipino',
+        popularity: 'Traditional',
+        characteristics: 'Noble, Leadership',
+        nameDay: 'August 19'
+    }]
+};
+
+const femaleNames = {
+    'Amihan': ['North Wind', 'In Philippine mythology, Amihan is the north wind deity bringing good weather.', {
+        origin: 'Filipino Mythology',
+        popularity: 'Unique',
+        characteristics: 'Gentle, Mystical',
+        nameDay: 'December 21'
+    }],
+    'Bituin': ['Star', 'A poetic name often used in traditional Filipino love songs and poetry.', {
+        origin: 'Filipino',
+        popularity: 'Artistic',
+        characteristics: 'Bright, Inspiring',
+        nameDay: 'January 6'
+    }],
+    'Ligaya': ['Happiness', 'Traditional Tagalog name often used in classic Filipino movies.', {
+        origin: 'Tagalog',
+        popularity: 'Classic',
+        characteristics: 'Joyful, Optimistic',
+        nameDay: 'May 1'
+    }]
+};
+
+function generateSummaryCards(nameData) {
+    return `
+        <div class="summary-card">
+            <h4>Origin & Culture</h4>
+            <p>Origin: ${nameData.origin}</p>
+            <p>Popularity: ${nameData.popularity}</p>
+        </div>
+        <div class="summary-card">
+            <h4>Personality & Significance</h4>
+            <p>Characteristics: ${nameData.characteristics}</p>
+            <p>Name Day: ${nameData.nameDay}</p>
+        </div>
+    `;
+}
+
+function generateName() {
+    const nameDisplay = document.getElementById('nameDisplay');
+    const nameElement = document.getElementById('generatedName');
+    const meaningElement = document.getElementById('nameMeaning');
+    const triviaSection = document.getElementById('triviaSection');
+    const summarySection = document.getElementById('summarySection');
+    const triviaText = document.getElementById('triviaText');
+    const nameSummary = document.getElementById('nameSummary');
+    
+    // Reset animations
+    nameDisplay.classList.remove('flip');
+    nameElement.classList.remove('reveal');
+    meaningElement.classList.remove('reveal');
+    triviaSection.classList.remove('reveal');
+    summarySection.classList.remove('reveal');
+    
+    // Trigger reflow
+    void nameDisplay.offsetWidth;
+    
+    // Add flip animation
+    nameDisplay.classList.add('flip');
+    
+    const gender = document.getElementById('gender').value;
+    let namePool = {};
+    
+    if (gender === 'male') {
+        namePool = maleNames;
+    } else if (gender === 'female') {
+        namePool = femaleNames;
+    } else {
+        namePool = {...maleNames, ...femaleNames};
+    }
+    
+    const names = Object.keys(namePool);
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    const [meaning, trivia, summaryData] = namePool[randomName];
+    
+    // Clear previous content
+    nameElement.innerHTML = '';
+    meaningElement.textContent = '';
+    
+    // Create animated letters
+    randomName.split('').forEach((letter, index) => {
+        const span = document.createElement('span');
+        span.textContent = letter;
+        span.className = 'letter-animate';
+        span.style.animationDelay = `${index * 0.1}s`;
+        nameElement.appendChild(span);
+    });
+    
+    // Set meaning and add reveal animations
+    setTimeout(() => {
+        meaningElement.textContent = `Meaning: ${meaning}`;
+        nameElement.classList.add('reveal');
+        meaningElement.classList.add('reveal');
+        
+        // Update and reveal trivia
+        triviaText.textContent = trivia;
+        triviaSection.classList.add('reveal');
+        
+        // Update and reveal summary
+        nameSummary.innerHTML = generateSummaryCards(summaryData);
+        summarySection.classList.add('reveal');
+    }, 200);
+}
+</script>
+</body></html>
